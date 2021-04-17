@@ -1,8 +1,9 @@
-#include <iostream.h>
-#include <conio.h>
-#include <fstream.h>
-#include <stdio.h>
-#include <dos.h>
+#include <iostream>
+#include <fstream>
+#include <unistd.h>
+
+using namespace std;
+
 class hotel
 {
 int room_no;
@@ -13,7 +14,7 @@ public:
 void main_menu();
 void add();//to book a room
 void display();//to display customer record
-void rooms();//to display allted rooms
+void rooms();//to display alloted rooms
 void edit();//to edit custmer record;
 int check(int);//tocheck roomstatus
 void modify(int);//to modify the record
@@ -24,7 +25,7 @@ void hotel::main_menu()
 int choice;
 while(choice!=5)
 {
-clrscr();
+//clrscr();
 cout<<"\n\t\t\t\t************";
 cout<<"\n\t\t\t\t*MAIN MENU*";
 cout<<"\n\t\t\t\t************";
@@ -46,14 +47,14 @@ default:
 {
 cout<<"\n\n\t\t\tWrong choice!!!";
 cout<<"\n\t\t\tpress any key to continue!!";
-getch();
+//getch();
 }
 }
 }
 }
 void hotel::add()
 {
-clrscr();
+//clrscr();
 int r,flag;
 ofstream fout("Record.dat",ios::trunc|ios::app);
 cout<<"\nEnter customer details";
@@ -67,21 +68,21 @@ else
 {
 room_no=r;
 cout<<"Name:";
-gets(name);
+cin.getline(name,30);
 cout<<"Address:";
-gets(address);
+cin.getline(address,50);
 cout<<"Phone number:";
-gets(phone);
+cin.getline(phone,10);
 fout.write((char*)this,sizeof(hotel));
 cout<<"\nRoom is booked!!!";
 }
 cout<<"\nPress any key to continue!!";
-getch();
+//getch();
 fout.close();
 }
 void hotel::display()
 {
-clrscr();
+//clrscr();
 int r,flag;
 ifstream fin("Record.dat",ios::in);
 cout<<"\nEnter room no:";
@@ -91,7 +92,7 @@ while(!fin.eof())
 fin.read((char*)this,sizeof(hotel));
 if(room_no==r)
 {
-clrscr();
+//clrscr();
 cout<<"\nCustomer Details";
 cout<<"\n***************";
 cout<<"\n\nRoom no:"<<room_no;
@@ -110,11 +111,11 @@ cout<<"\n\npress any key to continue!!";
 //getch();
 fin.close();
 }
-getch();
+//getch();
 }
 void hotel::rooms()
 {
-clrscr();
+//clrscr();
 ifstream fin("Record.dat",ios::in);
 cout<<"\n\t\t\tList of rooms allotted";
 cout<<"\n\t\t\t**********************";
@@ -126,12 +127,12 @@ cout<<"\n\n"<<room_no<<"\t\t"<<name;
 cout<<"t\t"<<address<<"\t\t"<<phone;
 }
 cout<<"\n\n\n\t\t\tpress any key to continue!!";
-getch();
+//getch();
 fin.close();
 }
 void hotel::edit()
 {
-clrscr();
+//clrscr();
 int choice,r;
 cout<<"\nEDIT Menu";
 cout<<"\n*********";
@@ -139,7 +140,7 @@ cout<<"\n\n1.Modify customer record";
 cout<<"\n2.Delete customer record";
 cout<<"\nEnter your choice:";
 cin>>choice;
-clrscr();
+//clrscr();
 cout<<"\nEnter room no:";
 cin>>r;
 switch(choice)
@@ -152,7 +153,7 @@ default:
 cout<<"\nWrong choice!!";
 }
 cout<<"\npress any key to continue!!!";
-getch();
+//getch();
 }
 int hotel::check(int r)
 {
@@ -183,11 +184,11 @@ if(room_no==r)
 cout<<"\nEnter New details";
 cout<<"\n*****************";
 cout<<"\nName:";
-gets(name);
+cin.getline(name,30);
 cout<<"Address";
-gets(address);
+cin.getline(address,50);
 cout<<"Phone number";
-gets(phone);
+cin.getline(phone,10);
 file.seekg(pos);
 file.write((char*)this,sizeof(hotel));
 cout<<"\nRecord is modified!!";
@@ -232,22 +233,23 @@ remove("Record.dat");
 rename("temp.dat","Record.dat");
 }
 }
-void main()
+int main()
 {
 hotel h;
 //textmode(C80);
 //textbackground(WHITE);
 //textcolor(RED);
-clrscr();
+//clrscr();
 cout<<"\n\t\t\t***************************";
 cout<<"\n\t\t\t*HOTEL RESERVATION PROJECT*";
 cout<<"\n\t\t\t***************************";
 sleep(2);
 cout<<"\n\n\n\n\t\tMade by:";
 sleep(2);
-cout<<"\n\t\tkarthick\n\t\tnaveen\n\t\tdinesh\n\t\tneelagandan";
+cout<<"\n\t\tDK";
 sleep(2);
 cout<<"\n\n\n\n\n\t\t\t\tpress any key to continue!!";
 h.main_menu();
-getch();
+return 0;
+//getch();
 }
